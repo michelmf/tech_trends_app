@@ -27,8 +27,8 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: /techtrends
-          file: ./Dockerfile
+          context: ./techtrends/
+          dockerfile: ./techtrends/Dockerfile
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKERHUB_REPOSITORY_NAME }}/techtrends:latest
