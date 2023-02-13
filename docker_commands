@@ -1,0 +1,35 @@
+## Docker commands used to build the application 
+docker build -t techtrends ./techtrends 
+
+## Docker commands used to run the application
+docker run -d -p 7111:3111 techtrends
+
+## Docker commands used to get the application logs
+docker logs $(docker ps | grep "techtrends" | awk '{print $1}') -f
+
+## Logs from the container running the TechTrends application
+INFO:werkzeug:02/13/2023 04:24:06, 172.17.0.1 - - [13/Feb/2023 04:24:06] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:06, 172.17.0.1 - - [13/Feb/2023 04:24:06] "GET /static/css/main.css HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:06, 172.17.0.1 - - [13/Feb/2023 04:24:06] "GET /favicon.ico HTTP/1.1" 404 -
+INFO:root:02/13/2023 04:24:07, Showing the Landing page.
+INFO:werkzeug:02/13/2023 04:24:07, 172.17.0.1 - - [13/Feb/2023 04:24:07] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:07, 172.17.0.1 - - [13/Feb/2023 04:24:07] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:root:02/13/2023 04:24:10, About Us page retrieved
+INFO:werkzeug:02/13/2023 04:24:10, 172.17.0.1 - - [13/Feb/2023 04:24:10] "GET /about HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:10, 172.17.0.1 - - [13/Feb/2023 04:24:10] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:werkzeug:02/13/2023 04:24:22, 172.17.0.1 - - [13/Feb/2023 04:24:22] "GET /create HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:22, 172.17.0.1 - - [13/Feb/2023 04:24:22] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:root:02/13/2023 04:24:26, Article with title 'gsdfdsgsfdg' created.
+INFO:werkzeug:02/13/2023 04:24:26, 172.17.0.1 - - [13/Feb/2023 04:24:26] "POST /create HTTP/1.1" 302 -
+INFO:root:02/13/2023 04:24:26, Showing the Landing page.
+INFO:werkzeug:02/13/2023 04:24:26, 172.17.0.1 - - [13/Feb/2023 04:24:26] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:24:26, 172.17.0.1 - - [13/Feb/2023 04:24:26] "GET /static/css/main.css HTTP/1.1" 304 -
+WARNING:root:02/13/2023 04:24:30, Article with id 25 does not exist. Route: /<int:post_id>
+INFO:werkzeug:02/13/2023 04:24:30, 172.17.0.1 - - [13/Feb/2023 04:24:30] "GET /25 HTTP/1.1" 404 -
+INFO:werkzeug:02/13/2023 04:24:30, 172.17.0.1 - - [13/Feb/2023 04:24:30] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:root:02/13/2023 04:25:04, Showing the Landing page.
+INFO:werkzeug:02/13/2023 04:25:04, 172.17.0.1 - - [13/Feb/2023 04:25:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:25:04, 172.17.0.1 - - [13/Feb/2023 04:25:04] "GET /static/css/main.css HTTP/1.1" 304 -
+INFO:root:02/13/2023 04:28:58, Showing the Landing page.
+INFO:werkzeug:02/13/2023 04:28:58, 172.17.0.1 - - [13/Feb/2023 04:28:58] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:02/13/2023 04:28:58, 172.17.0.1 - - [13/Feb/2023 04:28:58] "GET /static/css/main.css HTTP/1.1" 304 -
