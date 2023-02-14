@@ -25,10 +25,9 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
-          context: techtrends/
-          file: ./techtrends/Dockerfile
+          context: "{{defaultContext}}/techtrends"
           platforms: linux/amd64
           push: true
           tags: ${{ secrets.DOCKERHUB_REPOSITORY_NAME }}/techtrends:latest
