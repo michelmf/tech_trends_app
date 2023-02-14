@@ -1,7 +1,7 @@
 ## Helm Chart for techtrend app
 apiVersion: v1
 name: techtrends
-description: Install Python HelloWorld
+description: Deployment of techtrends app
 keywords:
 - techtrends
 version: 1.0.0

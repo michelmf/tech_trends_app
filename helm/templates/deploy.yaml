@@ -1,5 +1,5 @@
 # Deployment template for techtrends
-apiVersion: apps/v1
+apiVersion: v1
 kind: Deployment
 
 metadata:
