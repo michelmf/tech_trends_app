@@ -24,15 +24,9 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: test ls
-        run: ls
-        shell: bash
-      -
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: "./tech_trends/techtrends"
-          file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: ${{ secrets.DOCKERHUB_REPOSITORY_NAME }}/techtrends:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/techtrends:latest
