@@ -1,0 +1,10 @@
+## Helm Chart for techtrend app
+apiVersion: v1
+name: techtrends
+description: Install Python HelloWorld
+keywords:
+- techtrends
+version: 1.0.0
+maintainers:
+- name: michelmferreira 
+  email: michelmf@poli.ufrj.br

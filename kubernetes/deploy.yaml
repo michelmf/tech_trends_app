@@ -1,0 +1,46 @@
+## k3s Deployment Manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+  labels:
+    app: techtrend
+  name: techtrend
+  namespace: sandbox
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: techtrend
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: techtrend
+    spec:
+      containers:
+      - image: michelmferreira/techtrends
+        imagePullPolicy: IfNotPresent
+        name: techtrend
+        ports:
+        - containerPort: 3111
+          protocol: TCP
+        livenessProbe:
+           httpGet:
+             path: /healthz
+             port: 3111
+        readinessProbe:
+           httpGet:
+             path: /
+             port: 3111
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

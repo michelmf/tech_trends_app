@@ -1,0 +1,5 @@
+# Namespace Yaml for the techtrends app
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sandbox
