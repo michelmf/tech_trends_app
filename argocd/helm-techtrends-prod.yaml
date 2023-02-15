@@ -16,3 +16,4 @@ spec:
     path: helm
     repoURL: https://github.com/michelmf/tech_trends_app
     targetRevision: HEAD
+  syncPolicy: {}

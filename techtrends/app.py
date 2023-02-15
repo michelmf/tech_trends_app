@@ -27,8 +27,6 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "your secret key"
 database = DatabaseConnection(database_name="database.db")
 
-# Setup logging
-configure_logging()
 
 @app.route("/")
 def index():
@@ -44,6 +42,7 @@ def index():
 
     logging.info("Showing the Landing page.")
     return render_template("index.html", posts=posts)
+
 
 @app.route("/healthz")
 def health_probe():
@@ -122,7 +121,9 @@ def post(post_id):
     try:
         post = database.get_post(post_id)
         if len(post) == 0:
-            logging.warning(f"Article with id {post_id} does not exist. Route: {request.url_rule}")
+            logging.warning(
+                f"Article with id {post_id} does not exist. Route: {request.url_rule}"
+            )
             return render_template("404.html"), 404
 
     except OperationalError as e:
@@ -131,6 +132,7 @@ def post(post_id):
 
     logging.info(f"Article with id '{post[0][0]}' and title '{post[0][2]}' retrieved")
     return render_template("post.html", post=post[0])
+
 
 @app.route("/about")
 def about():
@@ -163,7 +165,7 @@ def create():
             except OperationalError as e:
                 logging.error(f"Database Error. Route: {request.url_rule}")
                 return render_template("500.html", error=e), 500
-            
+
             except Exception as e:
                 logging.error(f"Unknown Error. Route: {request.url_rule}")
                 return render_template("500.html", error=e), 500

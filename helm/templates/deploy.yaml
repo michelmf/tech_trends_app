@@ -1,11 +1,11 @@
 # Deployment template for techtrends
-apiVersion: v1
+apiVersion: apps/v1
 kind: Deployment
 
 metadata:
   labels:
     app: {{ .Values.appname }}
-    tag: latest
+    tag: {{ .Values.tag }}
   name: {{ .Values.appname }}
   namespace: {{ .Values.namespace.name }}
 
