@@ -3,8 +3,8 @@ Techtrends Flask application.
 
 """
 import logging
+import sys
 
-from logger import configure_logging
 from utils.database import DatabaseConnection
 
 from flask import (
@@ -24,10 +24,29 @@ from werkzeug.exceptions import abort
 
 # Define the Flask application
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "your secret key"
+# app.config["SECRET_KEY"] = "your secret key"
 database = DatabaseConnection(database_name="database.db")
 
+# Explicitly defining the logging configuration for the app
+file_handler = logging.FileHandler('app.log')
+stdout_handler = logging.StreamHandler(sys.stdout)
+stderr_handler = logging.StreamHandler(sys.stderr)
 
+handlers = [
+    file_handler,
+    stdout_handler,
+    stderr_handler
+]
+
+logging.basicConfig(
+    handlers=handlers,
+    format="%(asctime)8s %(levelname)-8s %(message)s"
+)
+
+app_logger = logging.getLogger(__name__)
+app_logger.setLevel(logging.DEBUG)
+
+# Routes
 @app.route("/")
 def index():
     """
@@ -37,10 +56,10 @@ def index():
         posts = database.execute("SELECT * FROM posts")
 
     except OperationalError as e:
-        logging.error(f"Database error. Route: {request.url_rule}")
+        app_logger.error(f"Database error. Route: {request.url_rule}")
         return render_template("500.html", error=e), 500
 
-    logging.info("Showing the Landing page.")
+    app_logger.info("Showing the Landing page.")
     return render_template("index.html", posts=posts)
 
 
@@ -55,7 +74,7 @@ def health_probe():
             status=200,
             mimetype="application/json",
         )
-        logging.info("Showing the health page.")
+        app_logger.info("Showing the health page.")
 
     except OperationalError as e:
         response = app.response_class(
@@ -63,7 +82,7 @@ def health_probe():
             status=500,
             mimetype="application/json",
         )
-        logging.error(f"Database error. Route: {request.url_rule}")
+        app_logger.error(f"Database error. Route: {request.url_rule}")
 
     except Exception as e:
         response = app.response_class(
@@ -71,7 +90,7 @@ def health_probe():
             status=500,
             mimetype="application/json",
         )
-        logging.error(f"Unknown error. Route: {request.url_rule}")
+        app_logger.error(f"Unknown error. Route: {request.url_rule}")
 
     return response
 
@@ -91,7 +110,7 @@ def app_metrics():
             status=200,
             mimetype="application/json",
         )
-        logging.info(f"Showing Metrics page. Route: {request.url_rule}")
+        app_logger.info(f"Showing Metrics page. Route: {request.url_rule}")
 
     except OperationalError as e:
         response = app.response_class(
@@ -99,7 +118,7 @@ def app_metrics():
             status=500,
             mimetype="application/json",
         )
-        logging.error(f"Database Error. Route: {request.url_rule}")
+        app_logger.error(f"Database Error. Route: {request.url_rule}")
 
     except Exception as e:
         response = app.response_class(
@@ -107,7 +126,7 @@ def app_metrics():
             status=500,
             mimetype="application/json",
         )
-        logging.error(f"Unknown Error. Route: {request.url_rule}")
+        app_logger.error(f"Unknown Error. Route: {request.url_rule}")
 
     return response
 
@@ -127,10 +146,10 @@ def post(post_id):
             return render_template("404.html"), 404
 
     except OperationalError as e:
-        logging.error(f"Database Error. Route: {request.url_rule}")
+        app_logger.error(f"Database Error. Route: {request.url_rule}")
         return render_template("500.html", error=e), 500
 
-    logging.info(f"Article with id '{post[0][0]}' and title '{post[0][2]}' retrieved")
+    app_logger.info(f"Article with id '{post[0][0]}' and title '{post[0][2]}' retrieved")
     return render_template("post.html", post=post[0])
 
 
@@ -139,7 +158,7 @@ def about():
     """
     Define the about us page.
     """
-    logging.info("About Us page retrieved")
+    app_logger.info("About Us page retrieved")
     return render_template("about.html")
 
 
@@ -159,15 +178,15 @@ def create():
                     posts (title, content) VALUES (?, ?)",
                     (title, content),
                 )
-                logging.info(f"Article with title '{title}' created.")
+                app_logger.info(f"Article with title '{title}' created.")
                 return redirect(url_for("index"))
 
             except OperationalError as e:
-                logging.error(f"Database Error. Route: {request.url_rule}")
+                app_logger.error(f"Database Error. Route: {request.url_rule}")
                 return render_template("500.html", error=e), 500
 
             except Exception as e:
-                logging.error(f"Unknown Error. Route: {request.url_rule}")
+                app_logger.error(f"Unknown Error. Route: {request.url_rule}")
                 return render_template("500.html", error=e), 500
 
     # TODO: handle title/content not provided

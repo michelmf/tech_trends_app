@@ -1,0 +1,12 @@
+2023-02-15 04:25:08,914 WARNING   * Running on all addresses.
+   WARNING: This is a development server. Do not use it in a production deployment.
+2023-02-15 04:25:08,914 INFO      * Running on http://192.168.0.152:3111/ (Press CTRL+C to quit)
+2023-02-15 04:25:11,234 INFO     Showing the Landing page.
+2023-02-15 04:25:11,239 INFO     192.168.0.152 - - [15/Feb/2023 04:25:11] "GET / HTTP/1.1" 200 -
+2023-02-15 04:25:18,493 INFO     192.168.0.152 - - [15/Feb/2023 04:25:18] "GET /create HTTP/1.1" 200 -
+2023-02-15 04:25:28,701 INFO     Article with title 'fsdfsadfa ' created.
+2023-02-15 04:25:28,702 INFO     192.168.0.152 - - [15/Feb/2023 04:25:28] "[32mPOST /create HTTP/1.1[0m" 302 -
+2023-02-15 04:25:28,704 INFO     Showing the Landing page.
+2023-02-15 04:25:28,704 INFO     192.168.0.152 - - [15/Feb/2023 04:25:28] "GET / HTTP/1.1" 200 -
+2023-02-15 04:25:36,807 INFO     Article with id '1' and title '2020 CNCF Annual Report' retrieved
+2023-02-15 04:25:36,809 INFO     192.168.0.152 - - [15/Feb/2023 04:25:36] "GET /1 HTTP/1.1" 200 -
